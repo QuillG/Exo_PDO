@@ -1,6 +1,15 @@
 <?php
+use MyClass\MyPdo;
+use MyClass\User;
+
 try {
-    $pdo = new PDO('sqlite:data.db', null , null,[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_OBJ]);
+    $user = null;
+    $mdp = null;
+    $dns = 'sqlite:data.db';
+    $myPdo = new MyPdo($dns, $user, $mdp);
+    $pdo = $myPdo->Connect();
+
+    
 
 } catch(PDOException $e) {
     echo 'PDO exception thrown : '.$e->getMessage();

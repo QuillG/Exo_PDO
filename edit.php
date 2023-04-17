@@ -1,9 +1,17 @@
 <?php require_once('header.php');?>
 <?php require_once('connect.php');?>
-<?php require_once('MyClass/Expe.php');?>
+<?php
+ require_once('MyClass/Expe.php');
+ use MyClass\Expe;
+ ?>
 
-<?php 
-$error = null;
+
+    
+<?php if (isset($_SESSION['id'])) :?>
+    <?php 
+
+
+    $error = null;
 
 
     $id = $pdo->quote($_GET['id']);
@@ -25,26 +33,32 @@ $error = null;
         die();
     }
 
-    $query->setFetchMode(PDO::FETCH_CLASS, "Expe");
+    $query->setFetchMode(PDO::FETCH_CLASS, Expe::class);
     $expe = $query->fetch();
 
 
 
 
 
-?>
-<?php if ($error) : ?>
-<?php echo $error; ?>
+    ?>
+    <?php if ($error) : ?>
+    <?php echo $error; ?>
 
 
-<?php else : ?>
-<form action="" method="post">
-    <input type="text" name="name" value="<?php echo htmlentities($expe->name);?>">
-    <textarea name="content" id="content" cols="30" row="10"><?php echo htmlentities($expe->content);?></textarea>
-    <button type="submit">Go !</button>
-</form>
+    <?php else : ?>
+    <form class="col-6 mt-5" action="" method="post">
+        <input class="form-control" type="text" name="name" value="<?php echo htmlentities($expe->name);?>">
+        <textarea class="form-control" name="content" id="content" cols="30" row="10"><?php echo htmlentities($expe->content);?></textarea>
+        <button class="btn btn-warning"type="submit">Go !</button>
+    </form>
 
-<?php endif; ?>
+    <?php endif; ?>
+<?php else :?>
+    <?php header('Location: index.php'); ?>
+<?php endif;?>
+
+
+    
 
 
 <?php require_once('footer.php');?>

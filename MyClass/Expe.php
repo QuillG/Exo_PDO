@@ -1,5 +1,11 @@
 <?php
+namespace MyClass;
+
+use IntlDateFormatter;
+use Mtownsend\ReadTime\ReadTime;
+
 class Expe{
+
     public $id;
     public $name;
     public $content;
@@ -8,7 +14,7 @@ class Expe{
     
     
    public function getResume() {
-        return substr($this->content, 0,1);
+        return substr($this->content, 0,3);
 
     }
 
@@ -16,6 +22,12 @@ class Expe{
         $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
         return $formatter->format($this->date);
     }
+
+    public function getReadTime() {
+        return (new ReadTime($this->content))->get();
+    }
+
+    
 }
 
 
